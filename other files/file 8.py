@@ -17,7 +17,7 @@ for i in range (1,100):
 
 '''
 '''a=str(-12)
-print(a[1:])'''
+print(a[1:]) '''
 
 x=str(-1)
 print(x.isnumeric())
