@@ -17,7 +17,7 @@ def palindrome():
     else:
         print('String is a palindrome')
         print()
-#test
+#test1
 def evenno():
     print()
     x=int(input('Your Number: '))
