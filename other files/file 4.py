@@ -8,7 +8,7 @@ if (x == y == z):
 elif (x == y) or (x == z) or (y == z):
     print('This is a Isoceles Triangle!')
 else:
-    print('This is a Scalene Triangle!')
+    print('This is a Scalene Triangle.')
 
 '''
 hello
