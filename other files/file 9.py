@@ -99,4 +99,14 @@ def ques10():
             print(' ')
         print(phone_dic)
 
+def ques11():
+    import random
+    y=int(input('how many random number do you want to add: '))
+    list1=['hello', 5, 'lamp']
+    while y>0:
+        x=random.randint(1,100)
+        list1.append(x)
+        y-=1
+    print(list1)
 
+ques11()
