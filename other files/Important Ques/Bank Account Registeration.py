@@ -88,7 +88,7 @@ def Account_info():
     Account_info_enter=str(input('Enter the Account number: '))
     if Account_info_enter.isdigit():
         if Account_info_enter in account_list:
-            print('Name \t Age \t Deposited Amount')
+            print('Account No \t Name \t Age \t Deposited Amount')
             for p in Account_Register[Account_info_enter]:
                 print(p , '\t' , end="")
         else:
