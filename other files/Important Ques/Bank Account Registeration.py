@@ -59,7 +59,7 @@ def Create_Account_Check():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
                 #Account Creation
-                Account_Register[acc_num]=[User_Name , User_Age , User_Dep_Ammount]
+                Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
                 print('Name \t Age \t Deposited Amount')
                 for i in Account_Register[acc_num]:
                     print(i , '\t' , end="")
@@ -82,6 +82,35 @@ def Create_Account_Check():
         print('We have Found something Wrong in your Entered Information. . .')
         Create_Account_Check_Re()
 
+#Show Account Info
+def Account_info():
+    global Account_info_enter
+    Account_info_enter=str(input('Enter the Account number: '))
+    if Account_info_enter.isdigit():
+        if Account_info_enter in account_list:
+            print('Name \t Age \t Deposited Amount')
+            for p in Account_Register[Account_info_enter]:
+                print(p , '\t' , end="")
+        else:
+            time.sleep(1)
+            print('')
+            print('We have Found something Wrong in your Entered Information. . .')
+            account_info_check()
+    else:
+        time.sleep(1)
+        print('')
+        print('We have Found something Wrong in your Entered Information. . .')
+        account_info_check
+
+
+def account_info_check():
+    if Account_info_enter.isdigit():
+        if Account_info_enter in account_list:
+            print('')
+        else:
+            print('')
+    else:
+        print('')
 
 #Start Menu
 def Start_Menu():
