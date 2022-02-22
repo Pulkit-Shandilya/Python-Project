@@ -99,12 +99,8 @@ def Calculation_V01():
     print(int_c)
 
 def Calculation_V02():
-    negint_a=-(int_a)
     negint_a=int_a
-    negint_b=-(int_b)
     negint_b=int_b
-    negint_c=-(int_c)
-
     negint_c=int_c
     
     print(negint_a)
