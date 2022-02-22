@@ -1,8 +1,11 @@
-from operator import contains
+from re import X
 
 
-wordlist = ['mississippi','miss','lake','que']
-x='a'
-for i in wordlist:
-    if x in i:
-        print(i)
+def test():
+    global x
+    x=1
+    print(x)
+
+test()
+
+print(x)
