@@ -1,7 +1,6 @@
-from re import X
+def ques_1():
+    print('')
 
 
 
-test()
-
-print(x)
+ques_1()

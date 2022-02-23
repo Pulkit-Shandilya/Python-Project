@@ -10,4 +10,19 @@ def ques13():
             OS+=SUB[J]+'$'
         print(OS)
         x-=1
-ques13()
+
+def ques14():
+    dict1={}
+    no_emplyees=int(input('Enter the Number of emplyees: '))
+    no_emplyees-=1
+    while no_emplyees>=0:
+        name = str(input('Enter your Name: '))
+        salaray =  int(input('Enter the Salaray: '))
+        house_rent = int(input('Enter the  House rent: '))
+        conveyance_allowance = int(input('Enter the Conveyance allowance: '))
+        dict1[name]=(name , salaray , house_rent , conveyance_allowance )
+        print('')
+        no_emplyees-=1
+    print(dict1)
+
+ques14()
