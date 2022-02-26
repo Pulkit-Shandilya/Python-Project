@@ -101,6 +101,10 @@ def ques10():
             print(' ')
         print(phone_dic)
 
+ques10()
+
+
+
 def ques11():
     y=int(input('how many random number do you want to add: '))
     list1=['hello', 5, 'lamp']

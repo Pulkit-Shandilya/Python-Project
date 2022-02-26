@@ -19,5 +19,10 @@ for i in range (1,100):
 '''a=str(-12)
 print(a[1:]) '''
 
-x=str(-1)
-print(x.isnumeric())
+'''x=str(-1)
+print(x.isnumeric())'''
+
+list1=[1,2,3,4,5,6]
+print(list1)
+list1[3] = list1[3] + 2
+print(list1)

@@ -61,10 +61,12 @@ def Create_Account_Check():
                 print('')
                 print('Please Remember Your Account Number you will need that to access your account in the future: ')
                 print('')
+                print('------------------------------------')
                 Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
                 print('Acc.No \t Name \t Age \t Dep.Amount')
                 for i in Account_Register[acc_num]:
                     print(i , '\t' , end="")
+                print('------------------------------------')
                 print('')
                 time.sleep(1)
                 print('')
@@ -107,12 +109,14 @@ def account_info_check():
             if int(Select_menu)==3:
                 Deposit_Money()
             elif int(Select_menu)==4:
-                Deposit_Money()
+                Withraw_Money()
             else:
                 print('')
+                print('------------------------------------')
                 print('Acc.No \t Name \t Age \t Dep.Ammount')
                 for p in Account_Register[int(Account_info_enter)]:
                     print(p , '\t' , end="")
+                print('------------------------------------')
                 time.sleep(1)
                 print('')
                 Start_Menu()
@@ -149,10 +153,69 @@ def account_info_check_re():
 #|------------------------Deposit/Withraw  Money------------------------|
 
 def Deposit_Money():
-    print('1')
+    global Deposit_Amount
+    Deposit_Amount=str(input('Enter the Amount you want to Deposit: '))
+    Deposit_Withraw_Money_Check()
+
+def Deposit_Withraw_Money_Check():
+    if int(Select_menu)==3:
+        if Deposit_Amount.isdigit():
+            if int(Deposit_Amount)>0:
+                Deposit_Variable=int(Account_Register[int(Account_info_enter)][3])   #Calculation
+                (Account_Register[int(Account_info_enter)])[3] = Deposit_Variable + int(Deposit_Amount)
+                print('')
+                print('Amount Successfully Deposited')
+                print('')
+                print('------------------------------------')
+                print('Acc.No \t Name \t Age \t Dep.Ammount')
+                for p in Account_Register[int(Account_info_enter)]:
+                    print(p , '\t' , end="")
+                print('------------------------------------')
+                time.sleep(1)
+                print('')
+                Start_Menu()
+            else:
+                print('')
+                print('We have Found something Wrong in your Entered Information. . . ')
+                print('')
+                Deposit_Money()
+        else:
+            print('')
+            print('We have Found something Wrong in your Entered Information. . . ')
+            print('')
+            Deposit_Money()
+    elif int(Select_menu)==4:
+        if Withraw_Amount.isdigit():
+            if int(Withraw_Amount)>0:
+                Deposit_Variable=int(Account_Register[int(Account_info_enter)][3])#Calculation
+                (Account_Register[int(Account_info_enter)])[3] = Deposit_Variable - int(Withraw_Amount)
+                print('')
+                print('Amount Successfully Withrawn')
+                print('')
+                print('------------------------------------')
+                print('Acc.No \t Name \t Age \t Dep.Ammount')
+                for p in Account_Register[int(Account_info_enter)]:
+                    print(p , '\t' , end="")
+                print('------------------------------------')
+                time.sleep(1)
+                print('')
+                Start_Menu()
+            else:
+                print('')
+                print('We have Found something Wrong in your Entered Information. . . ')
+                print('')
+                Withraw_Money()
+        else:
+            print('')
+            print('We have Found something Wrong in your Entered Information. . . ')
+            print('')
+            Withraw_Money()
 
 def Withraw_Money():
-    print('2')
+    global Withraw_Amount
+    Withraw_Amount=str(input('Enter the Amount you want to Withraw: '))
+    Deposit_Withraw_Money_Check()
+
 
 #|------------------------Start Menu------------------------|
 
@@ -166,6 +229,14 @@ def Start_Menu():
             Create_Account()
         elif int(Select_menu)==2:
             Account_info()
+        elif int(Select_menu)==3:
+            Account_info()
+        elif int(Select_menu)==4:
+            print('test')
+            Account_info()
+        elif int(Select_menu)==5:
+            print('------------To Be made------------')
+            Start_Menu()
         else:
             Start_Menu()
     else:
