@@ -4,11 +4,11 @@ import time
 
 input_value=0
 
-#List and Tuples Used
+#------------------------List and Tuples Used------------------------
 Account_Register={}
 account_list=[]
 
-#Account Number Generation
+#------------------------Account Number Generation------------------------
 def Acc_num_gen():
     global acc_num
     acc_num=random.randint(100000,999999)
@@ -20,7 +20,7 @@ def Acc_num_gen_check():
     else: 
         account_list.append(acc_num)
 
-#Aaccount Generation
+#------------------------Aaccount Generation------------------------
 def Create_Account():
     global User_Name
     global User_Age
@@ -36,21 +36,20 @@ def Create_Account_Check_Re():
     global User_Name
     global User_Age
     global User_Dep_Ammount
-
     if User_Name.isalpha():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
                 Create_Account_Check()
             else:
-                print(3)
+                print('')
                 User_Dep_Ammount=str(input('Please Enter Deposite amount more than Rs.1000 again: '))
                 Create_Account_Check()
         else:
-            print(2)
+            print('')
             User_Age=str(input('Enter Your Age Again: '))
             Create_Account_Check()
     else:
-        print(3)
+        print('')
         User_Name=str(input('Please Enter your Name Again: '))
         Create_Account_Check()
 
@@ -59,10 +58,14 @@ def Create_Account_Check():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
                 #Account Creation
+                print('')
+                print('Please Remember Your Account Number you will need that to access your account in the future: ')
+                print('')
                 Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
-                print('Name \t Age \t Deposited Amount')
+                print('Acc.No \t Name \t Age \t Dep.Amount')
                 for i in Account_Register[acc_num]:
                     print(i , '\t' , end="")
+                print('')
                 time.sleep(1)
                 print('')
                 Start_Menu()
@@ -82,45 +85,91 @@ def Create_Account_Check():
         print('We have Found something Wrong in your Entered Information. . .')
         Create_Account_Check_Re()
 
-#Show Account Info
+#|------------------------Show Account Info------------------------|
+
 def Account_info():
     global Account_info_enter
-    Account_info_enter=str(input('Enter the Account number: '))
+    if len(account_list)>0:
+        Account_info_enter=str(input('Enter the Account number: '))
+        account_info_check()
+    else:
+        time.sleep(1)
+        print('')
+        print('There are no Accounts Registered Yet, Please Create an Account . . .')
+        print('')
+        Start_Menu()
+
+
+def account_info_check():
+    #checking 1.0
     if Account_info_enter.isdigit():
-        if Account_info_enter in account_list:
-            print('Account No \t Name \t Age \t Deposited Amount')
-            for p in Account_Register[Account_info_enter]:
-                print(p , '\t' , end="")
+        if int(Account_info_enter) in account_list:
+            if int(Select_menu)==3:
+                Deposit_Money()
+            elif int(Select_menu)==4:
+                Deposit_Money()
+            else:
+                print('')
+                print('Acc.No \t Name \t Age \t Dep.Ammount')
+                for p in Account_Register[int(Account_info_enter)]:
+                    print(p , '\t' , end="")
+                time.sleep(1)
+                print('')
+                Start_Menu()
         else:
             time.sleep(1)
             print('')
-            print('We have Found something Wrong in your Entered Information. . .')
+            print('We have Found something Wrong in your Entered Information. . . ')
+            account_info_check_re()
+    else:
+        time.sleep(1)
+        print('')
+        print('We have Found something Wrong in your Entered Information. . . ')
+    account_info_check_re()
+
+
+def account_info_check_re():
+    #rechecking 2.0
+    global Account_info_enter
+    if Account_info_enter.isdigit():
+        if Account_info_enter in account_list:
+            account_info_check()
+        else:
+            time.sleep(1)
+            print('')
+            Account_info_enter=str(input('Please Enter the Account number Again: '))
             account_info_check()
     else:
         time.sleep(1)
         print('')
-        print('We have Found something Wrong in your Entered Information. . .')
-        account_info_check
+        Account_info_enter=str(input('Please Enter the Account number Again: '))
+        account_info_check()
 
 
-def account_info_check():
-    if Account_info_enter.isdigit():
-        if Account_info_enter in account_list:
-            print('')
-        else:
-            print('')
-    else:
-        print('')
+#|------------------------Deposit/Withraw  Money------------------------|
 
-#Start Menu
+def Deposit_Money():
+    print('1')
+
+def Withraw_Money():
+    print('2')
+
+#|------------------------Start Menu------------------------|
+
 def Start_Menu():
     global Select_menu
+    print('')
     Select_menu=str(input("Select One of the Following options \n 1. Create New Account \n 2. Show Account Info \n 3. Deposit Money \n 4. Withdraw Money \n 5. Action Logs \n \n Enter: "))
-    if int(Select_menu)==1:
-        Create_Account()
-    if int(Select_menu==2):
+    if Select_menu.isdigit():
         print('')
+        if int(Select_menu)==1:
+            Create_Account()
+        elif int(Select_menu)==2:
+            Account_info()
+        else:
+            Start_Menu()
     else:
-        print("Incorrect Input Please Enter Again")
+        print('10')
+        Start_Menu()
 
 Start_Menu()
