@@ -66,6 +66,7 @@ def Create_Account_Check():
                 print('Acc.No \t Name \t Age \t Dep.Amount')
                 for i in Account_Register[acc_num]:
                     print(i , '\t' , end="")
+                print('\n')
                 print('------------------------------------')
                 print('')
                 time.sleep(1)
@@ -116,6 +117,7 @@ def account_info_check():
                 print('Acc.No \t Name \t Age \t Dep.Ammount')
                 for p in Account_Register[int(Account_info_enter)]:
                     print(p , '\t' , end="")
+                print('\n')
                 print('------------------------------------')
                 time.sleep(1)
                 print('')
@@ -170,6 +172,7 @@ def Deposit_Withraw_Money_Check():
                 print('Acc.No \t Name \t Age \t Dep.Ammount')
                 for p in Account_Register[int(Account_info_enter)]:
                     print(p , '\t' , end="")
+                print('\n')
                 print('------------------------------------')
                 time.sleep(1)
                 print('')
@@ -196,6 +199,7 @@ def Deposit_Withraw_Money_Check():
                 print('Acc.No \t Name \t Age \t Dep.Ammount')
                 for p in Account_Register[int(Account_info_enter)]:
                     print(p , '\t' , end="")
+                print('\n')
                 print('------------------------------------')
                 time.sleep(1)
                 print('')
