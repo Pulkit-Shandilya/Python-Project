@@ -130,4 +130,4 @@ def ques12p2():
         print(A[K], end='#')
     print('')
 
-ques12()
+ques11()
