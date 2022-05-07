@@ -101,9 +101,6 @@ def ques10():
             print(' ')
         print(phone_dic)
 
-ques10()
-
-
 
 def ques11():
     y=int(input('how many random number do you want to add: '))
@@ -132,3 +129,5 @@ def ques12p2():
     for K in range(S, F+1):
         print(A[K], end='#')
     print('')
+
+ques12()
