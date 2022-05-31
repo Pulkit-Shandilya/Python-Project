@@ -22,3 +22,25 @@ def Q2():
     print('')
     print('Factorial of {0} is {1}' .format(x,y))
     print('')
+
+
+def Q3():
+    list1=[1,2]
+    dict={1:[121,123,1234] , 2:[212,234,424]}
+    for p in list1:
+        print(p)
+        print(dict[p])
+'''        for i in dict[p]:
+            print(i)'''
+
+def Q4():
+    p=4
+    data_variable=print(p , '\t' , end="")
+
+def Q5():
+    list1=[1,2]
+    dict={1:[121,123,1234] , 2:[212,234,424]}
+    print(dict[1][2])
+'''        for i in dict[p]:
+            print(i)'''
+Q5()

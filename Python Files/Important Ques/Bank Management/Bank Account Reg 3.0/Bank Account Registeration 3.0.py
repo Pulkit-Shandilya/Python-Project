@@ -1,12 +1,23 @@
 import random
 import math
 import time
+import pickle
+from turtle import end_fill
 
 input_value=0
 
 #------------------------List and Tuples Used------------------------
-Account_Register=open("Database.txt" , "r+")
+Account_Register={}
 account_list=[]
+
+#------------------------Database Upload
+Register_data=open("Register" , "rb")
+Account_Register = pickle.load(Register_data)
+Register_data.close()
+
+Register_data_ACno=open("Register ACno" , "rb")
+account_list = pickle.load(Register_data_ACno)
+Register_data_ACno.close()
 
 #------------------------Account Number Generation------------------------
 def Acc_num_gen():
@@ -25,17 +36,20 @@ def Create_Account():
     global User_Name
     global User_Age
     global User_Dep_Ammount
+    global User_Password
     
     Acc_num_gen()
-    User_Name=str(input('Enter your Name: '))
+    User_Name=str(input('Enter your Name (Put Hyphen[-] between Words): '))
+    User_Password=str(input('Create a Passowrd (min 4 characters): ')) 
     User_Age=str(input('Enter Your Age-above 15: '))
-    User_Dep_Ammount=str(input('Enter Deposite amount more than Rs.1000: '))
+    User_Dep_Ammount=str(input('Enter Deposite amount more than Rs.1000 (without commas): '))
     Create_Account_Check()
 
 def Create_Account_Check_Re():
     global User_Name
     global User_Age
     global User_Dep_Ammount
+    
     if User_Name.isalpha():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
@@ -54,6 +68,25 @@ def Create_Account_Check_Re():
         Create_Account_Check()
 
 def Create_Account_Check():
+
+    if (User_Name.isalpha() == False) and User_Age.isdigit() == False and ((int(User_Age)>=16) == False) and (User_Dep_Ammount.isdigit()) and ((User_Password>=4) == False):
+        print('\n Pease Remember Your Account Nummber You will need that to access your account in the future \n')
+        print('------------------------------------')
+        Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
+        print('Acc.No \t Name \t Age \t Dep.Amount')
+        for i in Account_Register[acc_num]:
+            print(i , '\t' , end="")
+        
+        print('\n ------------------------------------ \n')
+        time.sleep(1)
+        print('\n')
+        Start_Menu()
+    else:
+        time.sleep(1)
+        print('\n We have Found something Wrong in your Entered Information. . .')
+        Create_Account_Check_Re()
+
+'''
     if User_Name.isalpha():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
@@ -86,7 +119,7 @@ def Create_Account_Check():
         time.sleep(1)
         print('')
         print('We have Found something Wrong in your Entered Information. . .')
-        Create_Account_Check_Re()
+        Create_Account_Check_Re()'''
 
 #|------------------------Show Account Info------------------------|
 
@@ -221,12 +254,52 @@ def Withraw_Money():
     Deposit_Withraw_Money_Check()
 
 
+#|------------------------All Data------------------------|
+def Data_Call():
+    Data_Password=str(input('Please Enter the Authorisation Passoword: '))
+    Password_var='iampulkit'
+    if Data_Password==Password_var:
+        time.sleep(1)
+        print('\n Access Granted. . ')
+        time.sleep(2)
+        print('\n file created. . ')
+        Data_show=open("All User Data" , 'w')
+        for z in account_list:
+            Data_show.write('----------------------------------')
+            Data_show.write('\n Account Number: ')
+            Data_show.write(str(Account_Register[z][0]))
+            Data_show.write('\n Name: ')
+            Data_show.write( str(Account_Register[z][1]))
+            Data_show.write('\n Age: ')
+            Data_show.write( str(Account_Register[z][2]))
+            Data_show.write('\n Amount Deposited: ')
+            Data_show.write(str(Account_Register[z][3]))
+            Data_show.write('\n')
+        Data_show.close()
+
+        Start_Menu()
+
+    else:
+        print('incorrect Auth key.')
+        time.sleep(1)
+        print('')
+        Start_Menu()
+
 #|------------------------Start Menu------------------------|
 
 def Start_Menu():
+
+    Register_data= open('Register' , 'rb+')
+    pickle.dump(Account_Register , Register_data)
+    Register_data.close()
+
+    Register_data_ACno=open("Register ACno" , "rb+")
+    pickle.dump(account_list , Register_data_ACno)
+    Register_data_ACno.close()
+
     global Select_menu
     print('')
-    Select_menu=str(input("Select One of the Following options \n 1. Create New Account \n 2. Show Account Info \n 3. Deposit Money \n 4. Withdraw Money \n 5. Action Logs \n \n Enter: "))
+    Select_menu=str(input("Select One of the Following options \n 1. Create New Account \n 2. Show Account Info \n 3. Deposit Money \n 4. Withdraw Money \n 5. All Data \n \n Enter: "))
     if Select_menu.isdigit():
         print('')
         if int(Select_menu)==1:
@@ -239,8 +312,7 @@ def Start_Menu():
             print('test')
             Account_info()
         elif int(Select_menu)==5:
-            print('------------To Be made------------')
-            Start_Menu()
+            Data_Call()
         else:
             Start_Menu()
     else:
