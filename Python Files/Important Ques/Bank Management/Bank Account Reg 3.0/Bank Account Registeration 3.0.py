@@ -69,7 +69,7 @@ def Create_Account_Check_Re():
 
 def Create_Account_Check():
 
-    if (User_Name.isalpha() == False) and User_Age.isdigit() == False and ((int(User_Age)>=16) == False) and (User_Dep_Ammount.isdigit()) and ((User_Password>=4) == False):
+    if (User_Name.isalpha() != False) and User_Age.isdigit() != False and ((int(User_Age)>=16) != False) and (User_Dep_Ammount.isdigit()) and ((len(User_Password)>=4) != False):
         print('\n Pease Remember Your Account Nummber You will need that to access your account in the future \n')
         print('------------------------------------')
         Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
