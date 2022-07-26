@@ -25,4 +25,4 @@ def ques14():
         no_emplyees-=1
     print(dict1)
 
-ques12()
+ques13()
