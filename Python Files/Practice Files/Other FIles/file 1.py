@@ -43,4 +43,6 @@ def Q5():
     print(dict[1][2])
 '''        for i in dict[p]:
             print(i)'''
-Q5()
+
+
+Q1()
