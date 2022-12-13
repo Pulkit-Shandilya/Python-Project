@@ -130,4 +130,14 @@ def ques12p2():
         print(A[K], end='#')
     print('')
 
-ques11()
+def ques13():
+    a=[]
+    x=int(input('type number: '))
+
+
+
+
+    y=str(x).split()
+    print(y)
+
+ques13()
