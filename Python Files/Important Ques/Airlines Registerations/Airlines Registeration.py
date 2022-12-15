@@ -1,15 +1,41 @@
 import time , re , random 
 from datetime import datetime , timedelta , date 
+import pickle
+import mysql.connector
+
+
+ID_List=[]
+
+mydb = mysql.connector.connect(
+    host="localhost",
+    user="root",
+    password="mypassword123",
+    database="airline"
+)
+mycursor=mydb.cursor()
+
+#-----------------File Save Upload-------------
+Register_data=open("Python Files\Important Ques\Airlines Registerations\Register" , "rb")
+ID_List = pickle.load(Register_data)
+Register_data.close()
+
+#-----------------------------------------------
+
 def start_menu():
-    Select_menu=str(input("Select One of the Following options \n 1. Book a Ticket \n 2. View Ticket \n 3. Delete Ticket  \n \n Enter: "))
+    #-----------------File Save Export-------------
+    Register_data= open('Python Files\Important Ques\Airlines Registerations\Register' , 'rb+')
+    pickle.dump(ID_List , Register_data)
+    Register_data.close()
+
+
+
+    Select_menu=str(input("Select One of the Following options \n 1. Book a Ticket \n 2. View Ticket  \n \n Enter: "))
 
     if bool(re.match('[0-4]+$' , Select_menu)):
         if int(Select_menu)==1:
             Ticket_Book()
         elif int(Select_menu)==2:
-            print('')
-        elif int(Select_menu)==3:
-            print('')
+            Ticket_View()
         else:
             print('\n  Please enter a valid option. . . \n ')
             start_menu()
@@ -19,8 +45,20 @@ def start_menu():
 
 
 
-def  Ticket_Book():
+def Ticket_Book():
+
     global Select_Airlines_menu
+
+
+    def Flight_Booking_Id():
+        x=random.randrange(100000 , 999999)
+
+        if x in ID_List:
+            Flight_Booking_Id()
+        else: 
+            ID_List.append(x)
+            return x
+
 
     def Airlines_Person_Name_Age():
         Ticket_name = str(input('\n Please Enter Your Name: '))
@@ -98,13 +136,13 @@ def  Ticket_Book():
     def Airline_travel_Price():
         price = 0
         if Select_flight_class_menu == '1':
-            price = random.randint(5000,10000)
+            price = random.randrange(5000,10000)
         elif Select_flight_class_menu == '2':
-            price = random.randint(10000,20000)
+            price = random.randrange(10000,20000)
         elif Select_flight_class_menu =='3':
-            price = random.randint(20000,30000)
+            price = random.randrange(20000,30000)
         elif Select_flight_class_menu == '4':
-            price = random.randint(40000,70000)
+            price = random.randrange(40000,70000)
 
         return price
 
@@ -121,21 +159,56 @@ def  Ticket_Book():
     #--------------------------------------
 
     Person_Name , Person_Age = Airlines_Person_Name_Age()
-    time.sleep(1.5)
+    time.sleep(1)
     Airline_name=Airlines_Select() 
-    time.sleep(1.5)
+    time.sleep(1)
     print('')
     Departure_location=Airline_travel_location_start()
-    time.sleep(1.5)
+    time.sleep(1)
     print('')
     Landing_location = Airline_travel_location_end()
-    time.sleep(1.5)
+    time.sleep(1)
     print('')
     Flight_Class = Airline_Travel_Class()
     Flight_Price = Airline_travel_Price()
     Date_Today , Date_of_Flight = Flight_Date()
+    Booking_Id = Flight_Booking_Id()
 
-    Booking_Details =[Person_Name , Person_Age , Airline_name , Departure_location , Landing_location , Flight_Class , Flight_Price , Date_Today , Date_of_Flight]
-    print(Booking_Details)
+    Booking_Details =[Booking_Id, Person_Name , Person_Age ,  Departure_location , Landing_location , Flight_Class , Airline_name, Date_Today , Flight_Price ]
+
+
+    sql = "INSERT INTO ticket  VALUES (%s , %s , %s , %s , %s , %s , %s , %s , %s)"
+    mycursor.execute(sql , Booking_Details)
+    mydb.commit()
+    print('-------------------------------\n Your Booking Id is: ' , Booking_Id , '\n ------------------------------- \n')
+    print('\n . . .ticket booked successfully. . ')
+    time.sleep(1)
+    start_menu()
+
+def Ticket_View():
+    print(ID_List)
+
+    Enter_Booking_Id= str(input('Enter the registered Booking Id: '))
+
+    if Enter_Booking_Id.isdigit():
+        if int(Enter_Booking_Id) in ID_List:
+
+            sql= "SELECT * FROM ticket where Booking_ID= %s"
+            Booking_ID_tup=[int(Enter_Booking_Id)]
+            mycursor.execute(sql , Booking_ID_tup)
+            myresult = mycursor.fetchall()
+            print('---------------------------------------------------------------------------------------------------')
+            print('Booking Id | Name \t | Age |  Departure | Landing | Class | Airlines\t| Booking Date | Price |' )
+
+            for i in myresult:
+                for p in i:
+                    print(p , '   ', end='')
+            print('\n ---------------------------------------------------------------------------------------------------')
+        else:
+            print('\n not a valid ID please re-enter. . .')
+            start_menu()
+    else:
+        print('\n not a valid ID please re-enter. . .')
+        start_menu()
 
 start_menu()
