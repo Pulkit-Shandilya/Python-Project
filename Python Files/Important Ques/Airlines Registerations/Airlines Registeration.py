@@ -29,13 +29,15 @@ def start_menu():
 
 
 
-    Select_menu=str(input("Select One of the Following options \n 1. Book a Ticket \n 2. View Ticket  \n \n Enter: "))
+    Select_menu=str(input("Select One of the Following options \n 1. Book a Ticket \n 2. View Ticket \n 3.End  \n \n Enter: "))
 
     if bool(re.match('[0-4]+$' , Select_menu)):
         if int(Select_menu)==1:
             Ticket_Book()
         elif int(Select_menu)==2:
             Ticket_View()
+        elif int(Select_menu)==3:
+            print('\n Code has been Stopped. . . .')
         else:
             print('\n  Please enter a valid option. . . \n ')
             start_menu()
@@ -186,7 +188,6 @@ def Ticket_Book():
     start_menu()
 
 def Ticket_View():
-    print(ID_List)
 
     Enter_Booking_Id= str(input('Enter the registered Booking Id: '))
 
@@ -204,6 +205,7 @@ def Ticket_View():
                 for p in i:
                     print(p , '   ', end='')
             print('\n ---------------------------------------------------------------------------------------------------')
+            start_menu()
         else:
             print('\n not a valid ID please re-enter. . .')
             start_menu()
