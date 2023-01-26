@@ -1,0 +1,30 @@
+Q.Develop a menu-based program to push(number), pop( ), and display() to add a number (Accepted from the user) and remove a number from a list of numbers, considering them act as PUSH and POP operations of Data Structure in Python.										       04	
+Q.Write a Python Program to read a text file line by line and display each word separated by #.	       04
+Q.Write a function writeRec() to write the 5 employee Records (id, name, salary) in a binary file named “Emp.dat” and and also a ReadRec() function to read all the records and display them.
+Q.Complete the code as instructed
+import mysql.connector as S
+mycon = S.connect(_______,user=”root”,__________, database = __________)  #1
+cursor=mycon.cursor( )			#2
+cursor.execute(________________ )		#3
+data= ______________
+for rec in data:
+      print (rec)
+________________				 #4
+mycon.close()
+a.	Complete the statement 1 to write appropriate missing parameter and values.
+b.	Write the statement #2, to fetch name,class, Grade from table Student who have scored less than 400.
+c.	 Complete the statement to fetch all the records from the resultset.
+d.	What statement will you write in place of statement #2 to insert one more record in the table as well as in statement #4 to make your changes permanent in the database.
+
+Q. A binary file “Book.dat” has structure [BookNo, Book_ Name, Author, Price].	      		04
+a)	Write a user defined function CreateFile () to input data for a record and add to Book.dat.
+b)	Write a function CountRec (Author) in Python which accepts the Author name as parameter and count and return number of books by the given Author stored in the binary file “Book.dat    
+Q. Write a program to write into file “one.csv” Rollno, Name and Marks separated by comma. It should have header row and then take in input from the user for all following rows. The format of the file should be as shown if user enters 2 records.
+Q. Write a program to print and count all the four lettered words in a text file.
+Q. To Read a text file and display the number of vowels / consonants / uppercase / lowercase characters in the file.
+Q. Write a program to shift list elements as shown
+L = [3,5,2,7,8,4]
+Output
+L = [5,3,7,2,4,8]
+Q. Write a program to write data into a binary file marks.dat and display the records of students who score more that 95.
+ 
