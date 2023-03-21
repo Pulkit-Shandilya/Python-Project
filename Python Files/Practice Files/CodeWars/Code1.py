@@ -17,3 +17,5 @@ def Ques2():
     def duplicate_count(text):
     # Your code goes here
         print('hello')
+
+ques1()
