@@ -11,11 +11,11 @@ Account_Register={}
 account_list=[]
 
 #------------------------Database Upload
-Register_data=open("Register" , "rb")
+Register_data=open("Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\Register" , "rb")
 Account_Register = pickle.load(Register_data)
 Register_data.close()
 
-Register_data_ACno=open("Register ACno" , "rb")
+Register_data_ACno=open("Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\Register ACno" , "rb")
 account_list = pickle.load(Register_data_ACno)
 Register_data_ACno.close()
 
@@ -241,7 +241,7 @@ def Data_Call():
         print('\n Access Granted. . ')
         time.sleep(2)
         print('\n file created. . ')
-        Data_show=open("All User Data" , 'w')
+        Data_show=open("Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\All User Data" , 'w')
         for z in account_list:
             Data_show.write('----------------------------------')
             Data_show.write('\n Account Number: ')
@@ -267,11 +267,11 @@ def Data_Call():
 
 def Start_Menu():
 
-    Register_data= open('Register' , 'rb+')
+    Register_data= open('Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\Register' , 'rb+')
     pickle.dump(Account_Register , Register_data)
     Register_data.close()
 
-    Register_data_ACno=open("Register ACno" , "rb+")
+    Register_data_ACno=open("Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\Register ACno" , "rb+")
     pickle.dump(account_list , Register_data_ACno)
     Register_data_ACno.close()
 

@@ -18,4 +18,4 @@ def Ques2():
     # Your code goes here
         print('hello')
 
-ques1()
+Ques1()

@@ -1,6 +1,2 @@
-lst=[15,57]
-for i in range(0,len(lst)):
-    x=lst[i]
-    y=lst[i]%4
-    print(x , y)
-    print('')
+l=(10,20,30,5,6,7,8,9,1,2,3,4)
+print(l[-1:-4:-1])
