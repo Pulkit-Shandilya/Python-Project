@@ -18,4 +18,17 @@ def Ques2():
     # Your code goes here
         print('hello')
 
-Ques1()
+def Ques3():
+    newstring=string_
+    for i in string_:
+        if i in ['a','e','i','o','u','A','E','I','O','U']:
+            newstring=newstring.replace(i , '')
+    string_=newstring
+
+
+def Ques4():
+    x="hello"
+    print(len(x))
+
+
+Ques4()
