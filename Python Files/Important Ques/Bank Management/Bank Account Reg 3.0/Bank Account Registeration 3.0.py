@@ -316,7 +316,6 @@ def Start_Menu():
         else:
             Start_Menu()
     else:
-        print('10')
         Start_Menu()
 
 Start_Menu()
