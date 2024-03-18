@@ -73,11 +73,11 @@ def charater_select_check():
     print("\nClasses: \n 1. Brute : 120-HP High Damage, Med Defence, Low Speed, Low Crit \n 2. Archer: 90-HP Med Damage, Low Defence, High Speed, High Crit \n 3. Warrior: 100-HP Med Damage, High Defence, Med Speed, Med Crit \n 4. Assassin: 90-HP Low Damage, Low Defence, High Speed, High Crit\n")
     
     #perks limits
-    perk_range_veryhigh=random.randint(145, 200)
-    perk_range_high=random.randint(115, 150)
-    perk_range_med=random.randint(80, 120)
-    perk_range_low=random.randint(45, 85)
-    perk_range_verylow=random.randint(10, 45)
+    perk_range_veryhigh = random.randint(145, 200)
+    perk_range_high = random.randint(115, 150)
+    perk_range_med = random.randint(80, 120)
+    perk_range_low = random.randint(45, 85)
+    perk_range_verylow = random.randint(10, 45)
 
 
 
