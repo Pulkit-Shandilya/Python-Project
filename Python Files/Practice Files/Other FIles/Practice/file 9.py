@@ -15,6 +15,5 @@ def ques_1():
 
 
 
-ques_1()
-
-print(y)
+def ques_2():
+    d

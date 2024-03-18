@@ -7,11 +7,7 @@ def perks_information():
     global perk_defence
     global perk_Speed
     global perk_strength
-    from perks_02 import perk_health
-    from perks_02 import perk_crit
-    from perks_02 import perk_defence
-    from perks_02 import perk_Speed
-    from perks_02 import perk_strength
+    from perks_02 import perk_health,perk_crit,perk_defence,perk_Speed,perk_strength
 
 
 # Small Health Pack
@@ -22,7 +18,11 @@ def user_powerup_smallhealth():
         if small_health_pack in range (100, 102):
             if (perk_health>=(perk_health-20)):
                 perk_health=perk_health+20
+
+
 # Bigger Health Pack
+
+
 def user_powerup_smallhealth():
     loop_variable=1
     while loop_variable==1:
@@ -30,3 +30,8 @@ def user_powerup_smallhealth():
         if big_health_pack in range (101, 105):
             if (perk_health>=(perk_health-50)):
                 perk_health=perk_health+50
+
+
+def user_powerup_powerboost():
+    loop_variable=1
+
