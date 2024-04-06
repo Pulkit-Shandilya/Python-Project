@@ -24,7 +24,7 @@ def charater_select_check():
 
     select_character_str=str(input('Press the Number 1-4 to select your character. . .'))
     #--------------------------------
-    return perks.character_select()
+    return character_select()
 
 
 
@@ -35,7 +35,9 @@ class perks:
         self.perk_strength = strength
         self.perk_defence = defence
         self.perk_speed = speed
-        self.perk_health = crit
+        self.perk_crit = crit
+
+
 
     
 

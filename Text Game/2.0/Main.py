@@ -95,6 +95,8 @@ class perks:
         self.perk_defence = defence
         self.perk_speed = speed
         self.perk_crit = crit
+        
+    pass
 
     
 
@@ -133,11 +135,11 @@ def character_select():
         else:
             print('')
             print('Please Select a Valid Number From 1-4')
-            perks.charater_select_check()
+            charater_select_check()
     else:
         print('')
         print('Please Select a Valid Number From 1-4')
-        perks.charater_select_check() 
+        charater_select_check() 
     #---------------------------------------------------------------
     return story_continues()
 

@@ -31,4 +31,32 @@ def Ques4():
     print(len(x))
 
 
-Ques4()
+
+'''Write a function which receives 4 digits and returns the latest time of day that can be built with those digits.
+
+The time should be in HH:MM format.
+
+Examples:
+
+digits: 1, 9, 8, 3 => result: "19:38"
+digits: 9, 1, 2, 5 => result: "21:59" (19:25 is also a valid time, but 21:59 is late'''
+import itertools
+def latest_clock(a, b, c, d):
+    stuff=(a,b,c,d)
+    stuff_num=int(''.join(map(str, stuff)))
+    answer, remain , log=0 , stuff_num, 0
+    for subset in itertools.permutations(stuff, 4):
+        res = int(''.join(map(str, subset)))
+        
+        check=[str(d) for d in str(res)]
+        if res==0:
+            return "00:00"
+        if (abs(stuff_num-res) < remain and abs(stuff_num-res)>0 and res<2359) and int(check[2])<7 and int(check[0])<2:
+            answer , remain = check , abs(stuff_num-res)
+    answer.insert(2,":")   
+    return (''.join(map(str, answer)))
+            
+
+
+
+print(latest_clock(6, 0, 0, 5))
