@@ -38,7 +38,6 @@ class perks:
         self.perk_crit = crit
 
 
-
     
 
 def character_select():
