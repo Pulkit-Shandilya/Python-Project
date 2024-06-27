@@ -16,17 +16,19 @@ for i in range (1,100):
 
 
 '''
+#---------------------------------
 '''a=str(-12)
 print(a[1:]) '''
 
 '''x=str(-1)
 print(x.isnumeric())'''
-
-
+#-------------------------------------
+import itertools
 
 
 
 list1=[1,2,3,4,2]
+list3=[1,2,3,4,5,6,7,8,9]
 '''
 list2=[5,6,7,8,9,7,9]
 
@@ -36,12 +38,17 @@ print(list1[-1])
 print(list2.index(7))
 print(x, y)
 '''
-
-answer=[]
+#---------------
+'''answer=[]
 
 true=2
 
 print(list1.index(4))
 list1.remove(2)
 
-print(list1)
+print(list1)'''
+x=[]
+for i in itertools.permutations(list3,3):
+    x.append(i)
+print(x)
+print(len(x))

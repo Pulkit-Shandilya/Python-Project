@@ -61,7 +61,7 @@ def latest_clock(a, b, c, d):
 
 
 
-
+    
 #-----------------------------------------------------------------------------------------------------------------
 
 import itertools
@@ -138,7 +138,7 @@ def latest_clock2(a, b, c, d):
 
 
 
-
+#------------------------------------------------------------------------------------------------------------------------------------
 
 
 def latest_clock3(a,b,c,d):
@@ -155,6 +155,7 @@ def latest_clock3(a,b,c,d):
             else:
                 true=2
     print(true)
+
         # In case of No 1s or 2s and a 0
     if true==0:
         if (stuff[2]*10)+(stuff[1])<60:
@@ -183,8 +184,7 @@ def latest_clock3(a,b,c,d):
             answer.extend((stuff[0] , stuff[1]))
         elif check_2==60:
             print('-----')
-        
-
+    
     
     # In case of having 2s and a 0
     elif true==2 or true==3:
@@ -199,32 +199,64 @@ def latest_clock3(a,b,c,d):
                     stuff.remove(i)
                     break
             elif twocount==2:
+                if i<=3:
                     stuff.remove(2)
-                    stuff.remove(2)
-                    i=2
+                    stuff.remove(i)
                     break
             elif twocount==3:
-                stuff.remove(2)
-                stuff.remove(2)
-                i=2
-                break
-        answer.extend((2,i,':'))
+                if i<=3:
+                    stuff.remove(2)
+                    stuff.remove(i)
+                    break
+        
         check_1=(stuff[0]*10)+(stuff[1])
         check_2=(stuff[1]*10)+(stuff[0])
         #checking for minutes digits
         if check_1>check_2 and check_1<60:
-            answer.extend((stuff[0] , stuff[1]))
+            answer.extend((2,i,':',stuff[0] , stuff[1]))
         elif check_2<60:
-            answer.extend((stuff[1] , stuff[0]))
+            answer.extend((2,i,':',stuff[1] , stuff[0]))
         elif check_1<check_2 and check_1<60:
-            answer.extend((stuff[0] , stuff[1]))
-        elif check_2==60:
-            print('-----')
+            answer.extend((2,i,':',stuff[0] , stuff[1]))
+        elif check_2>=60:
+            answer.extend((i,stuff[1],':' , 2 , stuff[0]))
             
     return (''.join(map(str, answer)))
 
 
-print(latest_clock3(3,0,2,2))
+
+#------------------------------------------------------------------------------------------------------------------------------------
 
 
 
+def latest_clock4(a,b,c,d):
+    # Initialize variables to store the maximum time found
+    max_time = ""
+    digits=[a,b,c,d]
+    max_time=[0,0]
+    if (a+b+c+d)==0:
+        return '00:00'
+    # Generate all permutations of the digits
+    from itertools import permutations
+    for h1, h2, m1, m2 in permutations(digits,4):
+        # Construct hours and minutes strings
+        hours = f'{h1}' + f'{h2}'
+        minutes = f'{m1}' + f'{m2}'
+        print("h " ,hours)
+        print("m " ,minutes)
+        print("max " , max_time)
+        # Check if valid time (0 <= hours <= 23 and 0 <= minutes <= 59)
+        if int(hours) < 24 and int(minutes) < 60:
+            # Combine into HH:MM format
+            # Check if current_time is later than max_time found so far
+            if int(hours) > int(max_time[0]):
+                print(9)
+                max_time = [hours,minutes]
+            elif int(hours)==int(max_time[0]) and int(minutes) > int(max_time[1]):
+                    max_time = [hours,minutes]
+    
+    return f"{max_time[0]}:{max_time[1]}"
+
+
+
+print(latest_clock4(1, 2, 8, 9))
