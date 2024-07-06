@@ -10,12 +10,12 @@ input_value=0
 Account_Register={}
 account_list=[]
 
-#------------------------Database Upload
-Register_data=open("Register" , "rb")
+#------------------------Database Upload-------------------------------
+Register_data=open("Python Files\Important Ques\Bank Management\Bank Account Reg 3.0\Register" , "rb")
 Account_Register = pickle.load(Register_data)
 Register_data.close()
 
-Register_data_ACno=open("Register ACno" , "rb")
+Register_data_ACno=open("Python Files\Important Ques\Bank Management\Bank Account Reg 3.0\Register ACno" , "rb")
 account_list = pickle.load(Register_data_ACno)
 Register_data_ACno.close()
 
@@ -37,10 +37,14 @@ def Create_Account():
     global User_Age
     global User_Dep_Ammount
     global User_Password
-    
+    global User_Name_Split_check
+
+
+    User_Name_Split_check=False
+
     Acc_num_gen()
-    User_Name=str(input('Enter your Name (Put Hyphen[-] between Words): '))
-    User_Password=str(input('Create a Passowrd (min 4 characters): ')) 
+    User_Name=str(input('Enter your Name : '))
+    User_Password=str(input('Create a Passowrd (min 6 characters): ')) 
     User_Age=str(input('Enter Your Age-above 15: '))
     User_Dep_Ammount=str(input('Enter Deposite amount more than Rs.1000 (without commas): '))
     Create_Account_Check()
@@ -49,27 +53,69 @@ def Create_Account_Check_Re():
     global User_Name
     global User_Age
     global User_Dep_Ammount
+    global User_Password
+    global User_Name_Split_check
     
-    if User_Name.isalpha():
+    if User_Dep_Ammount.isdigit and int(User_Dep_Ammount)>=1000:
         if User_Age.isdigit() and int(User_Age)>=16:
-            if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
-                Create_Account_Check()
+            if len(User_Password)<6:
+                if User_Name_Split_check==True:
+                    Create_Account_Check()
+                else:
+                    print('')
+                    User_Name=str(input('Please Enter your Name Again: '))
             else:
                 print('')
-                User_Dep_Ammount=str(input('Please Enter Deposite amount more than Rs.1000 again: '))
-                Create_Account_Check()
+                User_Password=str(input('Enter you Password again: '))
         else:
             print('')
             User_Age=str(input('Enter Your Age Again: '))
-            Create_Account_Check()
     else:
         print('')
-        User_Name=str(input('Please Enter your Name Again: '))
-        Create_Account_Check()
+        User_Dep_Ammount=str(input('Please Enter Deposite amount more than Rs.1000 again: '))
+    Create_Account_Check()
 
 def Create_Account_Check():
+    global User_Name_Split_check
 
-    if (User_Name.isalpha() != False) and User_Age.isdigit() != False and ((int(User_Age)>=16) != False) and (User_Dep_Ammount.isdigit()) and ((len(User_Password)>=4) != False):
+    if len(User_Name)<=0:
+        print('')
+        Create_Account_Check_Re()
+
+    if (User_Age.isdigit() == True and (int(User_Age)>=16) == True) and (User_Dep_Ammount.isdigit()) and ((len(User_Password)>=6)):
+        for i in User_Name:
+            print(i)
+            if (i.isalpha()==True) or i==' ' or ((i.isspace)==True):
+                continue
+                #account creation
+            else:
+                print('\n We have Found something Wrong in your Entered Information. . .')
+                Create_Account_Check_Re()
+        
+        User_Name_Split_check=True
+    else:
+        print('\n We have Found something Wrong in your Entered Information. . .')
+        Create_Account_Check_Re()
+
+
+    print('completed')
+    #account creation
+    if User_Name_Split_check==True:
+        print('\n Pease Remember Your Account Nummber You will need that to access your account in the future \n')
+        print('------------------------------------')
+        Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount,User_Password]
+        print('Acc.No \t Name \t Age \t Dep.Amount \t Password')
+        for i in Account_Register[acc_num]:
+            print(i , '\t' , end="")
+        print('\n ------------------------------------ \n')
+        time.sleep(1) 
+        print('\n')
+        Start_Menu()
+
+
+
+
+'''    if (User_Name.isalpha() != False) and User_Age.isdigit() != False and ((int(User_Age)>=16) != False) and (User_Dep_Ammount.isdigit()) and ((len(User_Password)>=4) != False):
         print('\n Pease Remember Your Account Nummber You will need that to access your account in the future \n')
         print('------------------------------------')
         Account_Register[acc_num]=[acc_num , User_Name , User_Age , User_Dep_Ammount]
@@ -78,7 +124,7 @@ def Create_Account_Check():
             print(i , '\t' , end="")
         
         print('\n ------------------------------------ \n')
-        time.sleep(1)
+        time.sleep(1) 
         print('\n')
         Start_Menu()
     else:
@@ -86,7 +132,6 @@ def Create_Account_Check():
         print('\n We have Found something Wrong in your Entered Information. . .')
         Create_Account_Check_Re()
 
-'''
     if User_Name.isalpha():
         if User_Age.isdigit() and int(User_Age)>=16:
             if User_Dep_Ammount.isdigit() and int(User_Dep_Ammount)>=1000:
@@ -140,30 +185,36 @@ def account_info_check():
     #checking 1.0
     if Account_info_enter.isdigit():
         if int(Account_info_enter) in account_list:
-            if int(Select_menu)==3:
-                Deposit_Money()
-            elif int(Select_menu)==4:
-                Withraw_Money()
+
+            # Password check
+
+            Password_Enter=str(input("Please Enter the Password: "))
+
+            if str(Password_Enter) == str((Account_Register[int(Account_info_enter)][4])):
+                if int(Select_menu)==3:
+                    Deposit_Money()
+                elif int(Select_menu)==4:
+                    Withraw_Money()
+                else:
+                    print('\n------------------------------------')
+                    print('Acc.No \t Name \t Age \t Dep.Ammount')
+                    for p in Account_Register[int(Account_info_enter)]:
+                        print(p , '\t' , end="")
+                    print('\n ------------------------------------')
+                    time.sleep(1)
+                    print('')
+                    Start_Menu()
             else:
-                print('')
-                print('------------------------------------')
-                print('Acc.No \t Name \t Age \t Dep.Ammount')
-                for p in Account_Register[int(Account_info_enter)]:
-                    print(p , '\t' , end="")
-                print('\n')
-                print('------------------------------------')
-                time.sleep(1)
-                print('')
-                Start_Menu()
+                print('Incorrect Password. . .\n')
         else:
             time.sleep(1)
             print('')
             print('We have Found something Wrong in your Entered Information. . . ')
-            account_info_check_re()
     else:
         time.sleep(1)
         print('')
         print('We have Found something Wrong in your Entered Information. . . ')
+    
     account_info_check_re()
 
 
@@ -214,15 +265,14 @@ def Deposit_Withraw_Money_Check():
                 print('')
                 print('We have Found something Wrong in your Entered Information. . . ')
                 print('')
-                Deposit_Money()
         else:
             print('')
             print('We have Found something Wrong in your Entered Information. . . ')
             print('')
-            Deposit_Money()
+        Deposit_Money()
     elif int(Select_menu)==4:
         if Withraw_Amount.isdigit():
-            if int(Withraw_Amount)>0:
+            if int(Withraw_Amount)>0  and int(Deposit_Amount)<=Account_Register[int(Account_info_enter)][3]:
                 Deposit_Variable=int(Account_Register[int(Account_info_enter)][3])#Calculation
                 (Account_Register[int(Account_info_enter)])[3] = Deposit_Variable - int(Withraw_Amount)
                 print('')
@@ -241,12 +291,12 @@ def Deposit_Withraw_Money_Check():
                 print('')
                 print('We have Found something Wrong in your Entered Information. . . ')
                 print('')
-                Withraw_Money()
+
         else:
             print('')
             print('We have Found something Wrong in your Entered Information. . . ')
             print('')
-            Withraw_Money()
+        Withraw_Money()
 
 def Withraw_Money():
     global Withraw_Amount
@@ -263,7 +313,7 @@ def Data_Call():
         print('\n Access Granted. . ')
         time.sleep(2)
         print('\n file created. . ')
-        Data_show=open("All User Data" , 'w')
+        Data_show=open("Python Files\Important Ques\Bank Management\Bank Account Reg 3.0\All User Data" , 'w')
         for z in account_list:
             Data_show.write('----------------------------------')
             Data_show.write('\n Account Number: ')
@@ -274,6 +324,8 @@ def Data_Call():
             Data_show.write( str(Account_Register[z][2]))
             Data_show.write('\n Amount Deposited: ')
             Data_show.write(str(Account_Register[z][3]))
+            Data_show.write('\n Password: ')
+            Data_show.write(str(Account_Register[z][4]))
             Data_show.write('\n')
         Data_show.close()
 
@@ -289,11 +341,11 @@ def Data_Call():
 
 def Start_Menu():
 
-    Register_data= open('Register' , 'rb+')
+    Register_data= open('Python Files\Important Ques\Bank Management\Bank Account Reg 3.0\Register' , 'rb+')
     pickle.dump(Account_Register , Register_data)
     Register_data.close()
 
-    Register_data_ACno=open("Register ACno" , "rb+")
+    Register_data_ACno=open("Python Files\Important Ques\Bank Management\Bank Account Reg 3.0\Register ACno" , "rb+")
     pickle.dump(account_list , Register_data_ACno)
     Register_data_ACno.close()
 
@@ -316,7 +368,6 @@ def Start_Menu():
         else:
             Start_Menu()
     else:
-        print('10')
         Start_Menu()
 
 Start_Menu()
