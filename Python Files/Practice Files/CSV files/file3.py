@@ -12,9 +12,11 @@ with open('Python Files\Practice Files\CSV files\\a.csv','w') as newFile:
     what.writerow(['userid' , 'beneficiary'])
     what.writerows(rows)
 
-'''    new = csv.reader(newFile) 
+''' 
+    new = csv.reader(newFile) 
     for lines in new:
-        print(lines)'''
+        print(lines)
+'''
 
 
 

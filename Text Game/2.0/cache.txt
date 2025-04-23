@@ -1,0 +1,30 @@
+
+    "forest2": forest2 = map("You are in a forest. There is a path to the south and east.",
+                    "forest1",
+                    None,
+                    "mountain",
+                    None,
+                    0.4,
+                    forest_count
+                    ),
+
+
+
+
+map = {
+    "cabin": {
+        "description": "You are in a cabin. There is a door to the north.",
+        "north": "forest"
+    },
+
+
+    "forest1": forest1 = map("you are in a forest. There is a path to the south and east.",
+                    "forest2",
+                    "cabin",
+                    "cave",
+                    None,
+                    0,
+                    forest_count                  
+                    ),
+
+}

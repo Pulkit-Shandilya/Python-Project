@@ -1,37 +1,67 @@
-#import stuff
+from Character import modifiers
 import random
-import time
-def perks_information():
-    global perk_health
-    global perk_crit
-    global perk_defence
-    global perk_Speed
-    global perk_strength
-    from perks_02 import perk_health,perk_crit,perk_defence,perk_Speed,perk_strength
 
 
-# Small Health Pack
-def user_powerup_smallhealth():
-    loop_variable=1
-    while loop_variable==1:
-        small_health_pack= random.randint(1, 150)
-        if small_health_pack in range (100, 102):
-            if (perk_health>=(perk_health-20)):
-                perk_health=perk_health+20
+class Powerup:
+    def __init__(self, name, description):
+        self.name = name
+        self.description = description
 
 
-# Bigger Health Pack
+#Weapons and Armor 
+class Weapons(Powerup):
+    def __init__(self, name, description, damage):
+        super().__init__(name, description)
+        self.damage = damage
+
+    def use(self, character):
+        character.strength += self.damage
+        print(f"{character.name} equipped {self.name} and gained {self.damage} strength!")
+        print(f"{character.name}'s current strength: {character.strength}")
 
 
-def user_powerup_smallhealth():
-    loop_variable=1
-    while loop_variable==1:
-        big_health_pack= random.randint(1, 400)
-        if big_health_pack in range (101, 105):
-            if (perk_health>=(perk_health-50)):
-                perk_health=perk_health+50
+class Armor(Powerup):
+    def __init__(self, name, description, defence):
+        super().__init__(name, description)
+        self.defence = defence
+
+    def use(self, character):
+        character.defence += self.defence
+        print(f"{character.name} equipped {self.name} and gained {self.defence} defence!")
+        print(f"{character.name}'s current defence: {character.defence}")
 
 
-def user_powerup_powerboost():
-    loop_variable=1
 
+
+
+#Potions
+class smallHealthPotion(Powerup):
+    def __init__(self, health_increase):
+        health_increase = random.randint(10, 20)
+        super().__init__("Health Potion", "Restores health.")
+        self.health_increase = health_increase
+
+    def use(self, character):
+        character.health += self.health_increase
+        print(f"{character.name} used a Health Potion and restored {self.health_increase} health!")
+        if character.health > character.max_health:
+            character.health = character.max_health
+            print(f"{character.name}'s health is now at maximum!")
+        else:
+            print(f"{character.name}'s current health: {character.health}")
+    
+
+class largeHealthPotion(Powerup):
+    def __init__(self, health_increase):
+        health_increase = random.randint(40, 60)
+        super().__init__("Health Potion", "Restores health.")
+        self.health_increase = health_increase
+
+    def use(self, character):
+        character.health += self.health_increase
+        print(f"{character.name} used a Health Potion and restored {self.health_increase} health!")
+        if character.health > character.max_health:
+            character.health = character.max_health
+            print(f"{character.name}'s health is now at maximum!")
+        else:
+            print(f"{character.name}'s current health: {character.health}")

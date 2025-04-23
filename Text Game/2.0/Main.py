@@ -1,197 +1,68 @@
-import time
-import random
-
-
-#taking user info
-def User_info():
-    global user_name
-    global user_age
-    user_name=str(input('Please Enter Your Name Fellow Travelar: '))
-    user_age=str(input('Please Enter Your Age Fellow Travelar: '))
-User_info()
-
-
-#Re-Enter
-def User_info_Reenter():
-    global user_name
-    global user_age
-    user_name=str(input('Please Enter Your Name Fellow Travelar: '))
-    user_age=str(input('Please Enter Your Age Fellow Travelar: '))
-    User_info_check()
-
-
-#checking user info
-def User_info_check():
-    if user_age.isdigit():
-        user_age_int=int(user_age)
-    else:
-        time.sleep(1)
-        print('\nAs we have Found your Information to be Invalid pls enter it again. . . \n')
-        User_info_Reenter()
-    #trolling
-    user_age_int=int(user_age)
-    if user_name.isalpha():
-        if user_age.isdigit():
-            if user_age_int<10:
-                time.sleep(1)
-                print("\nAren't your a bit to young?. . .come back when ur a little older lol.\n")
-                User_info_Reenter()
-            elif user_age_int>=60:
-                print("Why is a old boozer playin this . .go read a history book or somethin lol.")
-                User_info_Reenter()
-            else:
-                print('\n Welcome Oh ,' , user_name , 'the great. . we had been waiting for your arival')
-                time.sleep(3)
-                print('\nYou have many great adventures on your life ahead. . .')
-                time.sleep(3)
-                print('\nNow you we will be picking your Perks. . Please Select the Character you want to be')
-                time.sleep(3)
-                str(user_age)
-                charater_select_check()
-                #calling the file
-        else:
-            time.sleep(1)
-            print('\nAs we have Found your Information to be Invalid pls enter it again. . . \n')
-            User_info_Reenter()
-    else:
-            time.sleep(1)
-            print('\nAs we have Found your Information to be Invalid pls enter it again. . . \n')
-            User_info_Reenter()
-
-
-
-
-
+import os
+from Character import Brute, Archer, Warrior, Assassin
+from GMap import Map
 
-def charater_select_check():
-    
-    global perk_range_veryhigh,perk_range_high,perk_range_med,perk_range_low,perk_range_verylow
-    global select_character , select_character_str
+# Character selection
+def select_character():
+    classes = {
+        1: ("Brute", 120, "High", "Med", "Low", "Low"),
+        2: ("Archer", 90, "Med", "Low", "High", "High"),
+        3: ("Warrior", 100, "Med", "High", "Med", "Med"),
+        4: ("Assassin", 90, "Low", "Low", "High", "High")
+    }
+    while True:
+        print("\nPick one of the following classes. Each has its own benefits, choose wisely!")
+        for key, value in classes.items():
+            print(f"{key}. {value[0]}: {value[1]}-HP, {value[2]} Damage, {value[3]} Defence, {value[4]} Speed, {value[5]} Crit")
+        choice = input('Press the number 1-4 to select your character: ')
+        if choice.isdigit() and int(choice) in classes:
+            return classes[int(choice)][0], choice
 
-    print('\nPick one of the Following Classes. . .Each has its own Benefits, choose wisely!')
-    time.sleep(2.4)
-    print("\nClasses: \n 1. Brute : 120-HP High Damage, Med Defence, Low Speed, Low Crit \n 2. Archer: 90-HP Med Damage, Low Defence, High Speed, High Crit \n 3. Warrior: 100-HP Med Damage, High Defence, Med Speed, Med Crit \n 4. Assassin: 90-HP Low Damage, Low Defence, High Speed, High Crit\n")
-    
-    #perks limits
-    perk_range_veryhigh = random.randint(145, 200)
-    perk_range_high = random.randint(115, 150)
-    perk_range_med = random.randint(80, 120)
-    perk_range_low = random.randint(45, 85)
-    perk_range_verylow = random.randint(10, 45)
 
+# ----------------------------------------------------------
 
 
-    select_character_str=str(input('Press the Number 1-4 to select your character. . .'))
-    #--------------------------------
-    return character_select()
+current_room = "start"
 
+#room counts
+forest_count = 0
+cave_count = 0
+mountain_count = 0
 
 
-#----------------------------------------------------------------------------------------------------------------------
-class perks:
-    def __init__(self , health ,strength , defence , speed , crit) -> None:
-        self.perk_health = health
-        self.perk_strength = strength
-        self.perk_defence = defence
-        self.perk_speed = speed
-        self.perk_crit = crit
-        
-    pass
 
-    
+map= {"cabin" : Map("You are in a cabin. There is a door to the north.",        "forest1", -1, -1, -1, 0, forest_count),
+"forest1" : Map("You are in a forest. There is a path to the south and east.",  "forest2", "cabin", "cave", -1, 0, forest_count),
+"forest2" : Map("You are in a forest. There is a path to the south and east.",  "forest1", -1, "mountain", -1, 0.4, forest_count),
+"cave": Map("You are in a cave. There is a path to the west.",                  -1, -1, -1, "forest1", 0.2, cave_count),
+"mountain": Map("You are in a mountain. There is a path to the west.",          -1, -1, "forest2", -1, 0.3, mountain_count)
+}
 
-def character_select():
-    global user_Class
-    global perk_health , perk_strength , perk_defence , perk_Speed , perk_crit , player_select
-    
+def clear():
+    os.system('cls' if os.name == 'nt' else 'clear')
 
+def create_character(user_class, choice):
+    # Create character instance based on class selection
+    class_selection = [Brute(0, 0, 0, 0, 0), Archer(0, 0, 0, 0, 0), Warrior(0, 0, 0, 0, 0), Assassin(0, 0, 0, 0, 0)]
+    return class_selection[int(choice)-1]
 
-    if select_character_str.isdigit():
-        select_character=int(select_character_str)
-        if select_character in range (1,5):
-                if select_character==1:
+def story_continues(user_class, character):
+    clear()
+    print(f'\nAlrighty! You have chosen "{user_class}". Great choice! \n Your stats: \n Health: {character.health}\n Strength: {character.strength}\n Defence: {character.defence}\n Speed: {character.speed}\n Critical: {character.crit}')
 
-                    user_Class = str('Brute')
-                    player_select = perks(120,perk_range_veryhigh,perk_range_med,perk_range_verylow,perk_range_veryhigh)
+def main():
+    clear()
+    user_class,choice = select_character()
+    character = create_character(user_class,choice)
+    story_continues( user_class, character)
+    # Game can continue from here using the character object
 
-                elif select_character==2:
-                
-                    user_Class = str('Archer')
-                    player_select = perks(90,perk_range_med,perk_range_low,perk_range_veryhigh,perk_range_high)
-                
-                elif select_character==3:
 
-                    user_Class = str('Warrior')
-                    player_select = perks(100,perk_range_med,perk_range_veryhigh,perk_range_med,perk_range_low)
-                
-                elif select_character==4:
 
-                    user_Class = str('Assassin')
-                    player_select = perks(90,perk_range_low,perk_range_verylow,perk_range_veryhigh,perk_range_veryhigh)
-                else:
-                    print("-------------------\nerror . . \n-------------------")
-                
 
-        else:
-            print('')
-            print('Please Select a Valid Number From 1-4')
-            charater_select_check()
-    else:
-        print('')
-        print('Please Select a Valid Number From 1-4')
-        charater_select_check() 
-    #---------------------------------------------------------------
-    return story_continues()
 
 
 
 
-
-
-
-#--------------------------------Story Continues--------------------------------
-def story_continues():
-    time.sleep(2)
-    print('\nAlrighty!!. . .from the above you have chosen "' , user_Class , '" Great Choice. . .from the RNG we have now given ur Character some perk values as shown Below \n')
-    print(user_name , "'s", user_Class, ": \n 1. Health: ", player_select.perk_health,"\n 2. Strength: ",  player_select.perk_strength, "\n 3. Defence: ",  player_select.perk_defence, "\n 4. Speed: ",  player_select.perk_speed, "\n 5. Crit: ",  player_select.perk_crit)
-    import Powerups
-
-#Function call
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-User_info_check()
+if __name__ == "__main__":
+    main()
