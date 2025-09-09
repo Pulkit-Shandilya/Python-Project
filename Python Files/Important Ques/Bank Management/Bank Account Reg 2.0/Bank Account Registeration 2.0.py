@@ -244,10 +244,7 @@ def Data_Call():
         Data_show=open("Python Files\Important Ques\Bank Management\Bank Account Reg 2.0\All User Data" , 'w')
         for z in account_list:
             Data_show.write('----------------------------------')
-            Data_show.write(f"\n Account Number: {Account_Register[z][0]} 
-                            \n Name: {Account_Register[z][1]} 
-                            \n Age: {Account_Register[z][2]} 
-                            \n Amount Deposited: {Account_Register[z][3]}\n")
+            Data_show.write(f"\n Account Number: {Account_Register[z][0]} \n Name: {Account_Register[z][1]} \n Age: {Account_Register[z][2]} \n Amount Deposited: {Account_Register[z][3]}\n")
         Data_show.close()
 
         Start_Menu()
