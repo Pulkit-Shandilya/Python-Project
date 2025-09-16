@@ -1,0 +1,100 @@
+def quick_sort(arr):
+    """
+    Sorts an array using the Quick Sort algorithm.
+    """
+    # Base case: arrays with 0 or 1 element are already sorted
+    if len(arr) <= 1:
+        return arr
+
+    # Choose pivot element from middle of array
+    pivot_index = len(arr) // 2
+    pivot = arr[pivot_index]
+
+    # Initialize three lists for partitioning
+    left = []   # Elements smaller than pivot
+    middle = [] # Elements equal to pivot
+    right = []  # Elements greater than pivot
+
+    # Partition: distribute elements into three groups
+    for x in arr:
+        if x < pivot:
+            left.append(x)          # Add to left partition
+        elif x == pivot:
+            middle.append(x)        # Add to middle partition (handles duplicates)
+        else:
+            right.append(x)         # Add to right partition
+
+    # Recursively sort the left and right partitions
+    sorted_left = quick_sort(left)
+    sorted_right = quick_sort(right)
+
+    # Combine results: left + middle + right
+    result = []
+    
+    # Add all elements from sorted left partition
+    for x in sorted_left:
+        result.append(x)
+    
+    # Add all pivot elements (already in correct position)
+    for x in middle:
+        result.append(x)
+    
+    # Add all elements from sorted right partition
+    for x in sorted_right:
+        result.append(x)
+
+    return result
+
+
+"""
+PSEUDOCODE FOR QUICK SORT:
+
+ALGORITHM QuickSort(array)
+BEGIN
+    // Base case
+    IF length of array <= 1 THEN
+        RETURN array
+    END IF
+    
+    // Choose pivot
+    SET pivot_index = length of array / 2
+    SET pivot = array[pivot_index]
+    
+    // Initialize partitions
+    CREATE empty list left
+    CREATE empty list middle  
+    CREATE empty list right
+    
+    // Partition elements
+    FOR each element x in array DO
+        IF x < pivot THEN
+            ADD x to left
+        ELSE IF x = pivot THEN
+            ADD x to middle
+        ELSE
+            ADD x to right
+        END IF
+    END FOR
+    
+    // Recursive calls
+    SET sorted_left = QuickSort(left)
+    SET sorted_right = QuickSort(right)
+    
+    // Combine results
+    CREATE empty list result
+    
+    FOR each element in sorted_left DO
+        ADD element to result
+    END FOR
+    
+    FOR each element in middle DO
+        ADD element to result
+    END FOR
+    
+    FOR each element in sorted_right DO
+        ADD element to result
+    END FOR
+    
+    RETURN result
+END
+"""
